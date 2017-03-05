@@ -1,0 +1,10 @@
+language: go
+
+go:
+  - 1.7
+
+install:
+  - ./script/bootstrap.sh
+
+script:
+  - go test
