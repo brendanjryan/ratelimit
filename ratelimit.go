@@ -36,6 +36,7 @@ type limiter struct {
 	clock    Clock
 }
 
+// New instantiates a new default limiter.
 func New(rate int) *limiter {
 
 	perReq := time.Second / time.Duration(rate)
@@ -49,11 +50,15 @@ func New(rate int) *limiter {
 	return l
 }
 
+// WithClock adds a Clock to the limiter.
 func (l *limiter) WithClock(c clock.Clock) *limiter {
 	l.clock = c
 	return l
 }
 
+// Take attempts to grab a token for doing a unit of work from
+// the ratelimiter. This method will block until work is able to
+//  be done.
 func (l *limiter) Take() time.Time {
 	l.Lock()
 	defer l.Unlock()
